@@ -1,6 +1,8 @@
 import requests
 import json
 from viewAnimeList import viewAnimeList
+from viewMangaList import viewMangaList
+from rankUserList import rankUserList
 
 print("====== Welcome to ChapterOne ======")
 userName = input("Enter your AniList username: ")
@@ -17,9 +19,9 @@ while (1):
         case 1:
             viewAnimeList(userName)
         case 2:
-            viewAnimeList(userName)
+            viewMangaList(userName)
         case 3:
-            viewAnimeList(userName)
+            rankUserList(userName)
         case 4:
             break
         case _:
