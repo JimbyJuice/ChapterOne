@@ -88,6 +88,8 @@
 
 Here's a blank template to get started. To avoid retyping too much info, do a search and replace with your text editor for the following: `JimbyJuice`, `ChapterOne`, `JuiceJimby`, `linkedin_username`, `email_client`, `email`, `ChapterOne`, `project_description`, `MIT License`
 
+<https://studio.apollographql.com/sandbox/schema/sdl?selectedSchema=%23%40%21api%21%40%23>
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 

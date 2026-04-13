@@ -1,41 +1,6 @@
-import requests
-
-def viewMangaList(userName):
-    query = '''
-    query ($type: MediaType!, $userName: String!) {
-        MediaListCollection(type: $type, userName: $userName) {
-            lists {
-                name
-                entries {
-                    id
-                    score
-                    media {
-                        id
-                        title {
-                            english
-                            romaji
-                        }
-                        averageScore
-                    }
-                }
-            }
-        }
-    }
-    '''
-
-    # define our query variables and values used in query request
-    variables = {
-        'type': 'MANGA',
-        'userName': userName
-    }
-
-    url = 'https://graphql.anilist.co'
-
-    # Make the HTTP API request
-    response = requests.post(url, json={'query': query, 'variables': variables})
-    data = response.json()
+def viewMangaList(mangaCache):
     listNames = []
-    for choiceList in data['data']['MediaListCollection']['lists']:
+    for choiceList in mangaCache['data']['MediaListCollection']['lists']:
         listNames.append(choiceList['name'])
     listNames.append('ALL')
     listNames.append('EXIT')
@@ -54,21 +19,17 @@ def viewMangaList(userName):
             
         if chosenList == 'EXIT':
             break
-    
-        if response.status_code == 200:
-            for list in data['data']['MediaListCollection']['lists']:
-                if (list['name'] != chosenList and chosenList != 'ALL'): continue
-                print(f"\n====== {list['name']} ======")
-                
-                for entry in list['entries']:
-                    title = entry['media']['title']['english']
-                    score = entry['score']
-                    averageScore = entry['media']['averageScore']
-                    if title is None:
-                        title = entry['media']['title']['romaji']
-                    print(f"\n* {title}")
-                    print(f"    - My Score: {score * 10}")
-                    print(f"    - Global Score: {averageScore}")
-                
-        else:
-            print(f"Error: {response.status_code}")
+
+        for list in mangaCache['data']['MediaListCollection']['lists']:
+            if (list['name'] != chosenList and chosenList != 'ALL'): continue
+            print(f"\n====== {list['name']} ======")
+            
+            for entry in list['entries']:
+                title = entry['media']['title']['english']
+                score = entry['score']
+                averageScore = entry['media']['averageScore']
+                if title is None:
+                    title = entry['media']['title']['romaji']
+                print(f"\n* {title}")
+                print(f"    - My Score: {score * 10}")
+                print(f"    - Global Score: {averageScore}")
